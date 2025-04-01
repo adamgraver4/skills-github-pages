@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compliance Saver Calculator</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4; color: #003366; }
+        .container { max-width: 600px; margin: auto; background: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
+        h2 { text-align: center; color: #d4af37; }
+        label { font-weight: bold; }
+        input { display: block; width: 100%; margin-bottom: 10px; padding: 8px; border: 1px solid #003366; border-radius: 4px; }
+        .result { margin-top: 20px; font-size: 18px; font-weight: bold; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Compliance Saver Calculator</h2>
+        <form id="costForm">
+            <label>Number of Offices: <input type="number" id="numOffices" value="1" min="1" oninput="calculateSavings()"></label>
+            <label>Safeagent/PM Membership Fee per Branch (£): <input type="number" id="cost1" value="295" oninput="calculateSavings()"></label>
+            <label>CMP Cost per Branch (£): <input type="number" id="cost2" value="410" oninput="calculateSavings()"></label>
+            <label>Client Accounting Sign Off per Branch (£): <input type="number" id="cost3" value="300" oninput="calculateSavings()"></label>
+            <label>PI Premium inc IPT per Branch (£): <input type="number" id="cost4" value="585" oninput="calculateSavings()"></label>
+            <label>TPO Cost per Branch (£): <input type="number" id="cost5" value="323" oninput="calculateSavings()"></label>
+            <label>HR Helpline Cost per Branch (£): <input type="number" id="cost6" value="540" oninput="calculateSavings()"></label>
+            <label>Propertymark Conference Tickets per Branch (£): <input type="number" id="cost7" value="228" oninput="calculateSavings()"></label>
+            <label>200 AML Check Cost per Branch (£): <input type="number" id="cost8" value="400" oninput="calculateSavings()"></label>
+        </form>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateSavings() {
+            let numOffices = Number(document.getElementById("numOffices").value) || 1;
+            let totalCost = 0;
+            for (let i = 1; i <= 8; i++) {
+                totalCost += (Number(document.getElementById(`cost${i}`).value) || 0) * numOffices;
+            }
+            const packageCost = 1500 * numOffices;
+            const savings = totalCost - packageCost;
+            document.getElementById("result").innerHTML = `Your Total Cost for ${numOffices} Office(s): £${totalCost.toFixed(2)}<br>
+                Package Cost for ${numOffices} Office(s): £${packageCost.toFixed(2)}<br>
+                <span style="color: ${savings > 0 ? 'green' : 'red'};">You Save: £${savings.toFixed(2)}</span>`;
+        }
+        window.onload = calculateSavings;
+    </script>
+</body>
+</html>
